@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Solution_15809_Àü±¹½Ã´ë {
+public class Solution_15809_ì „êµ­ì‹œëŒ€ {
 
 
 	public static void main(String[] args) throws Exception {

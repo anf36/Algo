@@ -4,48 +4,53 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class Solution_9934_¿ÏÀüÀÌÁøÆ®¸® {
+public class Solution_9934_ì™„ì „ì´ì§„íŠ¸ë¦¬ {
 
-	static class Node{
+	static class Node {
 		int index;
 		boolean visit;
-		
+
 	}
-	public static void main(String[] args) throws Exception{
+
+	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int K = Integer.parseInt(br.readLine());
-		int[] buildnumbers = new int[(int) (Math.pow(2, K)-1)];
+		int[] buildnumbers = new int[(int) (Math.pow(2, K) - 1)];
 		String[] buildnumberstring = br.readLine().split(" ");
-		for(int i = 0 ; i < buildnumbers.length ; i++) {
+		for (int i = 0; i < buildnumbers.length; i++) {
 			buildnumbers[i] = Integer.parseInt(buildnumberstring[i]);
 		}
 		ArrayList<Integer> answer = new ArrayList<>();
-		// 1. root ¸¦ »«´Ù K--
-		// 2. root ¾Æ·¡¿¡´Â µÎ°³ / Â÷´Â 2^(K-1)
-		// 3. K-- µÇ°í Â÷´Â 2^(0) À§ Ãş¿¡ ´ëÇØ ¸¶ÀÌ³Ê½º ÇÃ·¯½º ¶È°°ÀÌ ½Ç½Ã
-		int pivot = buildnumbers.length/2;
-		int floor = K-2;
+		// 1. root ë¥¼ ëº€ë‹¤ K--
+		// 2. root ì•„ë˜ì—ëŠ” ë‘ê°œ / ì°¨ëŠ” 2^(K-1)
+		// 3. K-- ë˜ê³  ì°¨ëŠ” 2^(0) ìœ„ ì¸µì— ëŒ€í•´ ë§ˆì´ë„ˆìŠ¤ í”ŒëŸ¬ìŠ¤ ë˜‘ê°™ì´ ì‹¤ì‹œ
+		int pivot = buildnumbers.length / 2;
+		int floor = K - 2;
 		int start = 0;
 		answer.add(pivot);
-		while(floor >=0) {
+		while (floor >= 0) {
 			pivot = answer.get(start);
-			answer.add((int) (pivot-Math.pow(2, floor)));
-			answer.add((int) (pivot+Math.pow(2, floor)));
+			answer.add((int) (pivot - Math.pow(2, floor)));
+			answer.add((int) (pivot + Math.pow(2, floor)));
 			start++;
-			if(isMatch(answer.size()+1)) {
+			if (isMatch(answer.size() + 1)) {
 				floor--;
 			}
 		}
-		for(int i = 0 ; i < answer.size(); i++) {
+		for (int i = 0; i < answer.size(); i++) {
 			System.out.print(buildnumbers[answer.get(i)] + " ");
-			if(isMatch(i+2)) {
+			if (isMatch(i + 2)) {
 				System.out.println();
 			}
 		}
 	}
+
 	static boolean isMatch(int number) {
-		if(number != 2 && number % 2 == 1) return false;
-		else if(number == 2) return true;
-		else	return isMatch(number/2);
+		if (number != 2 && number % 2 == 1)
+			return false;
+		else if (number == 2)
+			return true;
+		else
+			return isMatch(number / 2);
 	}
 }
