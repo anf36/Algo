@@ -22,7 +22,6 @@ public class Solution_풍선터뜨리기 {
 		}
 		System.out.println(solution(a));
 	}
-
 	static public int solution(int[] a) {
 		HashSet<Integer> answerSet = new HashSet<>();
 		if (a.length <= 3)
@@ -49,7 +48,7 @@ public class Solution_풍선터뜨리기 {
 		return answer + answerSet.size();
 	}
 
-//	static private  int find(int currentIndex, int[] a) {
+	//static private  int find(int currentIndex, int[] a) {
 //		int min = Integer.MAX_VALUE;
 //		int minIndex = 0;
 //		for(int i = currentIndex+1 ; i < a.length; i++) {
