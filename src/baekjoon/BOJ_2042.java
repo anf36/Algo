@@ -1,10 +1,8 @@
 package baekjoon;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 /**
  * BOJ_2042
@@ -13,7 +11,6 @@ public class BOJ_2042 {
     public static void main(String[] args) throws IOException{
         // 입출력을 위한 세팅
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         // N,M,K 입력
         // N 은 입력 숫자의 갯수
@@ -31,17 +28,31 @@ public class BOJ_2042 {
 
         long[] inputNumber = new long[N+1];
         setInputNumberArray(inputNumber, N, br);
-
-        System.out.println(segmentTree.init(inputNumber, 1, 1, N));
-        System.out.println(segmentTree.sum(1,1,N,2,4));
-        System.out.println(segmentTree.update(1, 1, N, 7, 2));
-        System.out.println(segmentTree.sum(1,1,N,2,4));
+        segmentTree.init(inputNumber, 1, 1, N);
+        solve(segmentTree, M+K, N, br);
+        // System.out.println(segmentTree.sum(1,1,N,2,4));
+        // System.out.println(segmentTree.update(1, 1, N, 7, 2));
+        // System.out.println(segmentTree.sum(1,1,N,2,4));
+        br.close();
 
     }
 
     private static void setInputNumberArray(long[] inputNumber, int N, BufferedReader br) throws IOException{
         for(int i = 1 ; i <= N ; i++){
             inputNumber[i] = Long.parseLong(br.readLine());
+        }
+    }
+
+    private static void solve(SegmentTree segmentTree, int commandCount, int N, BufferedReader br) throws IOException {
+        for (int i = 0 ; i < commandCount; i++){
+            String[] command = br.readLine().split(" ");
+            if(command[0].equals("1")){
+                segmentTree.update(1, 1, N, Integer.parseInt(command[1]), Long.parseLong(command[2]));
+            }
+
+            if(command[0].equals("2")){
+                System.out.println(segmentTree.sum(1, 1, N, Integer.parseInt(command[1]), Integer.parseInt(command[2])));
+            }
         }
     }
 
@@ -75,10 +86,10 @@ public class BOJ_2042 {
             else return sum (node * 2 , start , (start+end)/2, left,right) + sum (node * 2 + 1, (start+end)/2+1, end, left, right);
         }
 
-        long update (int node, int start, int end, long value, int target) {
-            if (end < target || start > target) return 0;
+        long update (int node, int start, int end, int target, long value) {
+            if (end < target || start > target) return tree[node];
             else if (start == target && end == target) return tree[node] = value;
-            else return update (node * 2, start, (start+end)/2, value, target) + update (node * 2 + 1, (start+end)/2+1, end, value, target); 
+            else return tree[node] = update (node * 2, start, (start+end)/2, target, value) + update (node * 2 + 1, (start+end)/2+1, end, target, value); 
         }
     }
 }
